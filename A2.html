@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Level 2 — Our First Moment</title>
+<style>
+  /* same styling as index for consistency */
+  :root{--bg:#fff6f8;--card:#fff;--accent:#ff6b94;--muted:#6b6b6b}
+        body{
+      margin:0;
+      font-family:Inter,system-ui,Roboto,'Poppins',sans-serif;
+      /* ✅ Correct background setup */
+      background-image: url('photo 3.jpg');  /* or 'images/photo3.jpg' if inside folder */
+      background-size: cover ;
+      background-position: center -1150px;
+      background-repeat: no-repeat;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+  .card{width:min(760px,92vw);background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:36px;text-align:center}
+  input{width:70%;padding:12px 14px;border-radius:10px;border:1px solid #ffe6ef;margin-top:16px;font-size:16px}
+  button{margin-left:8px;padding:12px 18px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+  p.lead{color:var(--muted)}
+  #message{margin-top:12px;color:#c04a6b}
+   .play-music{position:absolute;right:18px;top:18px}
+</style>
+</head>
+<body>
+  
+  <div class="play-music">
+    <button onclick="toggleMusic()">Play / Pause Music</button>
+  </div>
+  <div class="card">
+    <h1>Question - 2</h1>
+    <p class="lead">What's my love language!? 😒
+
+</p>
+    <input id="answer" placeholder="answer here" />
+    <button onclick="checkAnswer()">Submit</button>
+    <p id="message"></p>
+    <p class="hint">Hint: Happiee Happiee Happiee 😅</p>
+  </div>
+
+  <audio id="bgm" src="bgm.mp3" loop></audio>
+
+  
+  <script>
+    // Correct answer placeholder — replace with your real nickname
+    const CORRECT = 'to keep you happiee';
+
+    function normalize(s){return s.trim().toLowerCase();}
+
+    function checkAnswer(){
+      const raw = document.getElementById('answer').value;
+      const val = normalize(raw);
+      if(CORRECT.includes(val)){
+        // success
+        window.location.href = 'A3.html';
+      } else {
+        document.getElementById('message').textContent = 'Aww... try again cutie 💕';
+        shake();
+      }
+    }
+    function shake(){
+      const c=document.querySelector('.card');
+      c.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300});
+    }
+       function toggleMusic(){
+      const a=document.getElementById('bgm');
+      return a.paused? a.play() : a.pause();
+    }
+     window.addEventListener('load', () => {
+      const bgm = document.getElementById('bgm');
+      bgm.volume = 0;
+      const fade = setInterval(() => {
+        if (bgm.volume < 1) bgm.volume += 0.05;
+        else clearInterval(fade);
+      }, 200);
+      bgm.play().catch(() => {
+        console.log('Autoplay blocked until user interacts');
+      });
+    });
+    document.body.addEventListener('click', () => {
+  const bgm = document.getElementById('bgm.mp3');
+  if (bgm.paused) {
+    bgm.play();
+  }
+}, { once: true });  // only the first click
+
+  </script>
+</body>
+</html>
+```
